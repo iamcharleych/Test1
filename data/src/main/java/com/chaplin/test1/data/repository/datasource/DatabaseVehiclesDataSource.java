@@ -1,11 +1,11 @@
 package com.chaplin.test1.data.repository.datasource;
 
-import androidx.annotation.NonNull;
 import com.chaplin.test1.data.db.AppDatabase;
 import com.chaplin.test1.data.entity.VehicleEntity;
-import io.reactivex.Flowable;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public class DatabaseVehiclesDataSource implements VehiclesDataSource {
 
@@ -17,8 +17,8 @@ public class DatabaseVehiclesDataSource implements VehiclesDataSource {
     }
 
     @Override
-    public Flowable<List<VehicleEntity>> getVehicles() {
-        return Flowable.just(mDatabase.getVehiclesDao().loadVehicles());
+    public List<VehicleEntity> getVehicles() {
+        return mDatabase.getVehiclesDao().loadVehicles();
     }
 
     /* package */ void saveVehicles(List<VehicleEntity> vehicles) {

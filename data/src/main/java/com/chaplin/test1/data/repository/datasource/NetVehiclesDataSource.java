@@ -30,12 +30,13 @@ public class NetVehiclesDataSource implements VehiclesDataSource {
 
     @SuppressWarnings("unchecked")
     @Override
-    public Flowable<List<VehicleEntity>> getVehicles() {
+    public List<VehicleEntity> getVehicles() {
         return mRestClient.execute(Requests.getVehicles())
                 .map(dataResponse -> {
                     mLastCacheTime.set(SystemTimeProvider.currentTimeMillis());
                     return (List<VehicleEntity>) dataResponse.responseObject;
                 })
-                .doOnNext(mDatabaseDataSource::saveVehicles);
+                .doOnNext(mDatabaseDataSource::saveVehicles)
+                .blockingSingle();
     }
 }
